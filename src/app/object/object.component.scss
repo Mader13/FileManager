@@ -1,0 +1,22 @@
+.object {
+  display: flex;
+  align-items: center;
+
+  flex-direction: row;
+  gap: 1em;
+
+  .info {
+    gap: 0.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    a {
+      text-overflow: ellipsis;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    span {
+      font-size: 0.8em;
+    }
+  }
+}

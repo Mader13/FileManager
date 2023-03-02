@@ -1,0 +1,44 @@
+.container {
+  height: auto;
+  display: flex;
+  padding: 25px;
+  background-color: rgb(160, 160, 160);
+}
+
+.list-of-buckets {
+  width: 200px;
+  max-height: 400px;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 1.1em;
+  align-items: center;
+  padding: 25px;
+}
+
+.bucket {
+  font-size: 1.1em;
+  border: 1px solid black;
+  width: 250px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.object {
+  margin: 25px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  cursor: pointer;
+  gap: 1em;
+  height: 100px;
+}
+
+a {
+  height: 100px;
+}/*# sourceMappingURL=list-buckets.component.css.map */

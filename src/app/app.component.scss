@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2em;
+  padding-top: 2em;
+}
+app-list-buckets {
+  width: 360px;
+}

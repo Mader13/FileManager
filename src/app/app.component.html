@@ -1,0 +1,12 @@
+<div class="container">
+  <app-list-buckets
+    (chosenBucketEvent)="receiveBucketName($event)"
+  ></app-list-buckets>
+  <div class="no-objects" *ngIf="this.currentBucket == ''; else elseCase">
+    Объектов Нет
+  </div>
+  <ng-template #elseCase>
+    <app-list-objects [bucketName]="this.currentBucket"></app-list-objects>
+  </ng-template>
+</div>
+<router-outlet></router-outlet>

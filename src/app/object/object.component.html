@@ -1,0 +1,14 @@
+<div class="object">
+  <app-image
+    [bucket]="this.bucket"
+    [key]="key!"
+    *ngIf="isThisImage(key)"
+    (click)="openDialog(this.bucket, key!)"
+    >{{ key }} ></app-image
+  >
+  <div class="info">
+    <a (click)="downloadFile(bucket, key!)">{{ getCorrectObjectName(key!) }}</a>
+    <span>{{ lastModified }}</span>
+    <span>{{ getCorrectObjectSize(size!) }}</span>
+  </div>
+</div>
