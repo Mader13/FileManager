@@ -1,15 +1,48 @@
+$accentColor: rgba(139, 198, 236, 1);
+
 .container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-
+  background-color: $accentColor;
+  background-image: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
   gap: 2em;
-  padding-top: 2em;
+  height: 100vh;
 }
 app-list-buckets {
   width: 360px;
+  padding-top: 2em;
 }
-app-list-objects {
+
+.objects {
   min-width: 500px;
+  padding-top: 2em;
+}
+
+.auth-form {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2em;
+  h1 {
+    font-size: 4em;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    mat-form-field {
+      width: 300px;
+    }
+    button {
+      height: 4em;
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { delimiter } from 'path';
 import { S3ServiceService } from 'src/app/services/s3-service.service';
 import { IObject } from './../../interfaces/IObject';
@@ -9,7 +10,7 @@ import { IObject } from './../../interfaces/IObject';
   styleUrls: ['./list-objects.component.scss'],
 })
 export class ListObjectsComponent implements OnInit {
-  @Input() public bucketName?: string;
+  @Input() public bucketName!: string;
   @Input() prefix!: string;
 
   delimiter: string;
@@ -23,11 +24,13 @@ export class ListObjectsComponent implements OnInit {
     storageClass: string | undefined;
   }[] = [];
 
-  constructor(private s3ServiceService: S3ServiceService) {}
+  constructor(
+    private s3ServiceService: S3ServiceService,
+    private toastr: ToastrService
+  ) {}
 
   getObjectsFromBucket(bucketName: string | undefined, delimiter: string) {
     this.prefix = '';
-
     this.s3ServiceService
       .transformObjects(bucketName, this.prefix, delimiter)
       .subscribe((objects: IObject[]) => {
@@ -105,11 +108,16 @@ export class ListObjectsComponent implements OnInit {
   }
 
   onFileSelect(e: any) {
-    this.s3ServiceService.uploadFile(
-      this.bucketName!,
-      e.target.files[0],
-      this.prefix
-    );
+    try {
+      this.s3ServiceService.uploadFile(
+        this.bucketName!,
+        e.target.files[0],
+        this.prefix
+      );
+      this.toastr.success('File uploaded successfully');
+    } catch {
+      this.toastr.error('Upload error. Try again');
+    }
   }
   onSubmitSearch(query: any) {
     console.log(query);
@@ -125,16 +133,27 @@ export class ListObjectsComponent implements OnInit {
         });
     }
   }
+  onSubmitCreateFolder(query: any) {
+    console.log(query);
+    if (query.length == 0) {
+      console.log('empty folder name');
+    } else {
+      console.log(query);
+      this.s3ServiceService.createFolder(this.bucketName, query, this.prefix);
+    }
+  }
   async deleteObject(bucketName: string, key: string) {
     try {
       await this.s3ServiceService.deleteFile(bucketName, key);
       this.objects = this.objects.filter(function (obj) {
         return obj.key !== key;
       });
+      this.toastr.success('File is deleted');
     } catch (err) {
-      console.log('ERROR');
+      this.toastr.error('Delete error. Try again');
     }
   }
+
   ngOnChanges() {
     this.getObjectsFromBucket(this.bucketName, '/');
   }

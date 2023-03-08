@@ -1,8 +1,9 @@
 <div class="container">
-  <h2>Текущий префикс: {{ this.bucketName }}/{{ this.prefix }}</h2>
+  <h2>Prefix: {{ this.bucketName }}/{{ this.prefix }}</h2>
   <div class="controls" *ngIf="this.bucketName">
     <button
       class="return-btn"
+      mat-button
       (click)="returnToPreviousFolder(this.bucketName!, this.prefix, '/')"
     >
       ◄
@@ -16,8 +17,8 @@
     />
     <label class="upload-btn" for="fileUpload"
       ><svg
-        height="50px"
-        width="50px"
+        height="64px"
+        width="56px"
         version="1.1"
         id="Capa_1"
         xmlns="http://www.w3.org/2000/svg"
@@ -42,16 +43,32 @@
       </svg>
     </label>
     <div class="search">
-      <input
-        name="search"
-        #searchquery
-        placeholder="Поиск по префиксу..."
-        type="text"
-      />
-      <button (click)="onSubmitSearch(searchquery.value)">🔍︎</button>
+      <mat-form-field>
+        <mat-label>Search by prefix</mat-label>
+        <input matInput #searchquery required />
+        <mat-error>Check field content</mat-error>
+      </mat-form-field>
+
+      <button mat-flat-button (click)="onSubmitSearch(searchquery.value)">
+        🔍︎
+      </button>
+    </div>
+    <div class="create-folder">
+      <mat-form-field>
+        <mat-label>New folder name</mat-label>
+        <input matInput #createFolder required />
+        <mat-error>Check field content</mat-error>
+      </mat-form-field>
+
+      <button
+        mat-flat-button
+        (click)="onSubmitCreateFolder(createFolder.value)"
+      >
+        🔍︎
+      </button>
     </div>
   </div>
-  <div class="objects">
+  <div class="objects" *ngIf="objects.length != 0">
     <div class="object" *ngFor="let object of objects">
       <app-object
         [key]="object.key"
@@ -70,8 +87,12 @@
         *ngIf="isThisFolder(object.key)"
         >{{ object.key!.substring(object.key!.lastIndexOf("/") + 1) }}</a
       >
-      <button (click)="deleteObject(this.bucketName!, object.key!)">🗑</button>
+      <button mat-fab (click)="deleteObject(this.bucketName!, object.key!)">
+        🗑
+      </button>
     </div>
   </div>
-  <span *ngIf="objects.length == 0">Пусто</span>
+  <span class="no-objects" *ngIf="objects.length == 0"
+    >No objects to display</span
+  >
 </div>
