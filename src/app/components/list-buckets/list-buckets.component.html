@@ -1,12 +1,9 @@
 <div class="list-of-buckets">
-  <h2>Хранилища</h2>
+  <h2>Buckets</h2>
   <div class="buckets">
-    <a
-      class="bucket"
-      *ngFor="let bucket of buckets"
-      (click)="choseBucket(bucket.name!)"
-      >{{ bucket.name }}
+    <a class="bucket" *ngFor="let b of buckets" (click)="choseBucket(b.name!)"
+      >{{ b.name }}
     </a>
   </div>
-  <span *ngIf="buckets.length == 0">Хранилищ не обнаружено</span>
+  <span *ngIf="buckets.length == 0">No buckets available</span>
 </div>

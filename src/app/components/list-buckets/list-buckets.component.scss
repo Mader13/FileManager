@@ -36,6 +36,7 @@ $mColor: rgb(25, 118, 210);
       transition: 0.1s ease-in-out;
       &:hover {
         color: $mColor;
+        border: 1px solid $mColor;
       }
     }
   }

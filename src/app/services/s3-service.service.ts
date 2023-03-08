@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import * as AWS from 'aws-sdk';
 import * as RXJS from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -20,11 +19,17 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { IBucket } from '../interfaces/IBucket';
 import { IObject } from '../interfaces/IObject';
 import * as e from 'cors';
+import { Endpoint } from 'aws-sdk';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
 })
 export class S3ServiceService {
+  endpoint: string | Endpoint;
+  accessKeyId: string;
+  secretAccessKey: string;
+  region: string | undefined;
   private sourceBucket = new BehaviorSubject<string>('');
   private sourcePrefix = new BehaviorSubject<string>('');
   currentBucket = this.sourceBucket.asObservable();
@@ -39,22 +44,22 @@ export class S3ServiceService {
     storageClass: string | undefined;
   }[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private toastr: ToastrService) {}
 
   changeBucket(bucket: string) {
     this.sourceBucket.next(bucket);
   }
 
   createInstanceS3() {
-    const endpoint = 'https://s3.storage.selcloud.ru';
+    const endpoint = this.endpoint;
     const s3 = new AWS.S3({
       credentials: {
-        accessKeyId: '245747_Minti',
-        secretAccessKey: 'Selectel_not_great1',
+        accessKeyId: this.accessKeyId,
+        secretAccessKey: this.secretAccessKey,
       },
       endpoint,
       s3ForcePathStyle: true,
-      region: 'ru-1',
+      region: this.region,
       signatureVersion: 'v4',
       apiVersion: 'latest',
     });
@@ -83,7 +88,7 @@ export class S3ServiceService {
         storageClass: object.StorageClass,
       };
     });
-
+    console.log(this.objects);
     return this.objects;
   }
 
@@ -145,6 +150,7 @@ export class S3ServiceService {
     );
   }
   fileUploading: boolean;
+
   async uploadFile(bucket: string, file: File, prefix: string) {
     let key: string;
     if (prefix == undefined) {
@@ -187,6 +193,34 @@ export class S3ServiceService {
       }
     });
   }
+
+  async createFolder(bucket: string, name: string, prefix: string) {
+    let nameS: string;
+    if (prefix == undefined) {
+      nameS = name;
+    } else {
+      nameS = prefix + '/' + name + '~';
+    }
+
+    const s3 = this.createInstanceS3();
+
+    s3.upload(
+      {
+        Bucket: bucket,
+        Key: nameS,
+        Body: '',
+        ACL: 'private',
+      },
+      (err: any, data: any) => {
+        if (err) {
+          console.log(err, err.stack);
+        } else {
+          this.toastr.success('Folder "' + name + '" is created');
+        }
+      }
+    );
+  }
+
   async deleteFile(bucket: string, key: string) {
     const s3 = this.createInstanceS3();
     const params = {

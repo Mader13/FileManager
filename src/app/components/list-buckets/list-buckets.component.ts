@@ -5,6 +5,7 @@ import { IObject } from 'src/app/interfaces/IObject';
 
 import { S3ServiceService } from 'src/app/services/s3-service.service';
 import { IBucket } from './../../interfaces/IBucket';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-buckets',
@@ -13,15 +14,14 @@ import { IBucket } from './../../interfaces/IBucket';
   providers: [S3ServiceService],
 })
 export class ListBucketsComponent implements OnInit {
-  endpoint = 'https://s3.storage.selcloud.ru';
   public imageUrl: string;
   currentPrefix: string;
-  @Input() bucket!: IBucket;
+  @Input() buckets!: Array<IBucket>;
 
   @Output() chosenBucketEvent = new EventEmitter<string>();
   public currentBucket = '';
 
-  buckets: { name: string | undefined; creationDate: Date | undefined }[] = [];
+  // buckets: { name: string | undefined; creationDate: Date | undefined }[] = [];
   objects: {
     checkSumAlgorithm: string[] | undefined;
     etag: string | undefined;
@@ -32,7 +32,10 @@ export class ListBucketsComponent implements OnInit {
     storageClass: string | undefined;
   }[] = [];
 
-  constructor(private s3ServiceService: S3ServiceService) {}
+  constructor(
+    private s3ServiceService: S3ServiceService,
+    private toastr: ToastrService
+  ) {}
 
   choseBucket(bucketName: string) {
     this.currentBucket = bucketName;
@@ -44,7 +47,6 @@ export class ListBucketsComponent implements OnInit {
   getObjects(bucketName: string, prefix: string, delimiter: string) {
     this.currentBucket = bucketName;
     this.currentPrefix = prefix;
-
     this.s3ServiceService
       .transformObjects(bucketName, prefix, delimiter)
       .subscribe((objects: IObject[]) => {
@@ -79,13 +81,20 @@ export class ListBucketsComponent implements OnInit {
     } else return false;
   }
 
+  ngOnChanges() {
+    // this.s3ServiceService.transformBuckets().subscribe((buckets: IBucket[]) => {
+    //   console.log('Buckets', buckets);
+    //   this.buckets = buckets;
+    // });
+  }
   ngOnInit() {
     this.s3ServiceService.currentBucket.subscribe(
       (currentBucket) => (this.currentBucket = currentBucket)
     );
-    this.s3ServiceService.transformBuckets().subscribe((buckets: IBucket[]) => {
-      console.log('Buckets', buckets);
-      this.buckets = buckets;
-    });
+
+    // this.s3ServiceService.transformBuckets().subscribe((buckets: IBucket[]) => {
+    //   console.log('Buckets', buckets);
+    //   this.buckets = buckets;
+    // });
   }
 }

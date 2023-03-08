@@ -1,7 +1,7 @@
 $mColor: rgba(25, 118, 210, 1);
-
+$accentColor: rgba(139, 198, 236, 1);
 h2 {
-  height: 50px;
+  height: 60px;
   overflow-y: auto;
   margin-bottom: 0.5em;
   color: $mColor;
@@ -11,17 +11,17 @@ h2 {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 2em;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   .upload-btn {
-    width: 50px;
-    height: 50px;
+    width: 64px;
+    height: 56px;
 
     svg {
       cursor: pointer;
-      width: 40px;
-      height: 40px;
-      padding: 5px;
+      width: 54px;
+      height: 48px;
+      padding: 4px;
 
       background-color: rgba(69, 93, 122);
       border-radius: 10px;
@@ -40,52 +40,37 @@ h2 {
     }
   }
   .return-btn {
-    min-width: 50px;
-    min-height: 50px;
+    height: 56px;
+
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+
     background-color: rgba(69, 93, 122);
-    color: rgba(250, 250, 250);
+    border-radius: 10px;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+
     transition: 0.1s ease-in-out;
     &:hover {
       color: $mColor;
     }
-    &:focus {
-      color: $mColor;
-    }
+
     cursor: pointer;
-    border-radius: 10px;
-    font-size: 1.5em;
-    font-weight: bold;
   }
 
+  .create-folder,
   .search {
-    height: 50px;
     display: flex;
-    border-radius: 10px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    input {
-      padding: 0 1em;
-      //width: 50vw;
-
-      height: 50px;
-      border: none;
-      border-radius: 10px 0 0 10px;
-      font-size: 1.1em;
-      &:focus {
-        outline: none;
-      }
-    }
+    justify-content: center;
 
     button {
-      width: 50px;
-      height: 50px;
+      height: 56px;
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       border: 1px solid rgba(0, 0, 0, 0.1);
       background-color: rgba(69, 93, 122);
       border-radius: 0px 10px 10px 00px;
-      font-size: 1.5em;
+      font-size: 2em;
       font-weight: bold;
       cursor: pointer;
       color: white;
@@ -111,18 +96,22 @@ h2 {
     box-sizing: border-box;
     font-size: 1.4em;
     font-weight: bold;
+    &:hover {
+      color: $mColor;
+    }
   }
   &:hover {
     border: 1px solid $mColor;
   }
   .folder {
+    display: flex;
+    align-items: center;
     text-overflow: ellipsis;
     cursor: pointer;
+    height: 100%;
   }
 
   button {
-    width: 60px;
-    height: 60px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border: 1px solid rgba(0, 0, 0, 0.1);
 
@@ -134,8 +123,8 @@ h2 {
     }
 
     cursor: pointer;
-    border-radius: 10px;
-    font-size: 1.8em;
+
+    font-size: 2em;
   }
 
   background-color: rgba(255, 255, 255, 1);
@@ -144,22 +133,31 @@ h2 {
   border-radius: 10px;
 }
 .objects {
+  height: 75vh;
   flex: auto;
   margin: 1em 0;
   gap: 1em;
   display: flex;
   align-items: flex-start;
-  height: 75vh;
   overflow-y: scroll;
   flex-direction: column;
 
   color: rgba(0, 0, 0, 0.7);
 }
 .container {
+  height: 90vh;
   width: 45vw;
   background-color: rgb(250, 250, 250);
   border-radius: 20px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 1em;
   margin-right: 2em;
+  display: flex;
+  flex-direction: column;
+}
+.no-objects {
+  margin: auto auto;
+  font-size: 3em;
+
+  color: $mColor;
 }

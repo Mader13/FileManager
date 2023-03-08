@@ -1,12 +1,41 @@
 <div class="container">
-  <app-list-buckets
-    (chosenBucketEvent)="receiveBucketName($event)"
-  ></app-list-buckets>
-  <div class="no-objects" *ngIf="this.currentBucket == ''; else elseCase">
-    Объектов Нет
+  <div class="auth-form" *ngIf="this.auth == false; else elseCaseAuth">
+    <h1>S3 File Manager</h1>
+    <form [formGroup]="authForm" (ngSubmit)="submitCredentials()">
+      <mat-form-field required>
+        <mat-label>Access Key</mat-label>
+        <input matInput formControlName="accessKey" />
+        <mat-error>Check field content</mat-error>
+      </mat-form-field>
+      <mat-form-field required>
+        <mat-label>Secret Access Key</mat-label>
+        <input type="password" matInput formControlName="secretAccessKey" />
+        <mat-error>Check field content</mat-error>
+      </mat-form-field>
+      <mat-form-field required>
+        <mat-label>Region</mat-label>
+        <input matInput formControlName="region" />
+        <mat-error>Check field content</mat-error>
+      </mat-form-field>
+      <mat-form-field required>
+        <mat-label>Endpoint</mat-label>
+        <mat-error>Check field content</mat-error>
+        <input matInput formControlName="endpoint" />
+      </mat-form-field>
+      <button color="primary" mat-raised-button>Войти</button>
+    </form>
   </div>
-  <ng-template #elseCase>
-    <app-list-objects [bucketName]="this.currentBucket"></app-list-objects>
+
+  <ng-template #elseCaseAuth>
+    <app-list-buckets
+      (chosenBucketEvent)="receiveBucketName($event)"
+      [buckets]="this.buckets"
+    ></app-list-buckets>
+
+    <div class="objects">
+      <app-list-objects [bucketName]="this.currentBucket"></app-list-objects>
+    </div>
   </ng-template>
 </div>
+
 <router-outlet></router-outlet>
