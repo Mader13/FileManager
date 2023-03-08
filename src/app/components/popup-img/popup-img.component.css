@@ -1,0 +1,34 @@
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+  min-width: 260px;
+  min-height: 320px;
+  padding: 0 0.5em;
+}
+.modal-container mat-dialog-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+.modal-container img {
+  border-radius: 10px;
+  max-height: 60vh;
+}
+.modal-container button {
+  width: 120px;
+  height: 60px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgb(69, 93, 122);
+  color: rgb(250, 250, 250);
+  transition: 0.1s ease-in-out;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 1.1em;
+}
+.modal-container button:hover {
+  border: 2px solid rgb(25, 118, 210);
+}/*# sourceMappingURL=popup-img.component.css.map */

@@ -183,10 +183,9 @@ export class S3ServiceService {
       if (err) {
         console.log(err, err.stack);
       } else {
-        console.log(data);
+        console.log('File is uploaded successfully');
       }
     });
-    //return this.http.put<any>(uploadURL, body, httpOptions)
   }
   async deleteFile(bucket: string, key: string) {
     const s3 = this.createInstanceS3();

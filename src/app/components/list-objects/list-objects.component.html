@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Текущий префикс: {{ this.bucketName }}/{{ this.prefix }}</h2>
-  <div class="controls" *ngIf="objects.length != 0">
+  <div class="controls" *ngIf="this.bucketName">
     <button
       class="return-btn"
       (click)="returnToPreviousFolder(this.bucketName!, this.prefix, '/')"

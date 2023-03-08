@@ -1,1 +1,150 @@
-/*# sourceMappingURL=list-objects.component.css.map */
+h2 {
+  height: 50px;
+  overflow-y: auto;
+  margin-bottom: 0.5em;
+  color: rgb(25, 118, 210);
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2em;
+  align-items: center;
+  justify-content: flex-start;
+}
+.controls .upload-btn {
+  width: 50px;
+  height: 50px;
+}
+.controls .upload-btn svg {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  background-color: rgb(69, 93, 122);
+  border-radius: 10px;
+}
+.controls .upload-btn svg:hover path {
+  transition: all 100ms ease-in-out !important;
+  fill: rgb(25, 118, 210) !important;
+}
+.controls .upload-btn svg:focus path {
+  fill: rgb(25, 118, 210) !important;
+}
+.controls .return-btn {
+  min-width: 50px;
+  min-height: 50px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgb(69, 93, 122);
+  color: rgb(250, 250, 250);
+  transition: 0.1s ease-in-out;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.controls .return-btn:hover {
+  color: rgb(25, 118, 210);
+}
+.controls .return-btn:focus {
+  color: rgb(25, 118, 210);
+}
+.controls .search {
+  height: 50px;
+  display: flex;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.controls .search input {
+  padding: 0 1em;
+  height: 50px;
+  border: none;
+  border-radius: 10px 0 0 10px;
+  font-size: 1.1em;
+}
+.controls .search input:focus {
+  outline: none;
+}
+.controls .search button {
+  width: 50px;
+  height: 50px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgb(69, 93, 122);
+  border-radius: 0px 10px 10px 0px;
+  font-size: 1.5em;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+}
+
+.object {
+  border: 2px solid black;
+  font-size: 1.2em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 120px !important;
+  width: 95%;
+  justify-content: space-between;
+  justify-items: center;
+  padding: 1em;
+  transition: 0.1s ease-in-out;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 10px;
+}
+.object a {
+  width: 100%;
+  align-self: center;
+  box-sizing: border-box;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+.object:hover {
+  border: 1px solid rgb(25, 118, 210);
+}
+.object .folder {
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.object button {
+  width: 60px;
+  height: 60px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgb(69, 93, 122);
+  color: rgb(250, 250, 250);
+  transition: 0.1s ease-in-out;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 1.8em;
+}
+.object button:hover {
+  border: 2px solid rgb(249, 89, 89);
+}
+
+.objects {
+  flex: auto;
+  margin: 1em 0;
+  gap: 1em;
+  display: flex;
+  align-items: flex-start;
+  height: 75vh;
+  overflow-y: scroll;
+  flex-direction: column;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.container {
+  width: 45vw;
+  background-color: rgb(250, 250, 250);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1em;
+  margin-right: 2em;
+}/*# sourceMappingURL=list-objects.component.css.map */

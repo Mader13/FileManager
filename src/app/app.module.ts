@@ -14,6 +14,8 @@ import { ObjectComponent } from './object/object.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PopupImgComponent } from './components/popup-img/popup-img.component';
+import { CommonModule } from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent,

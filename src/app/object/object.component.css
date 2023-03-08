@@ -1,1 +1,20 @@
-/*# sourceMappingURL=object.component.css.map */
+.object {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 1em;
+}
+.object .info {
+  gap: 0.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.object .info a {
+  text-overflow: ellipsis;
+  cursor: pointer;
+  font-weight: bold;
+}
+.object .info span {
+  font-size: 0.8em;
+}/*# sourceMappingURL=object.component.css.map */

@@ -9,10 +9,8 @@ import { IObject } from './../../interfaces/IObject';
   styleUrls: ['./list-objects.component.scss'],
 })
 export class ListObjectsComponent implements OnInit {
-  @Input() object!: IObject;
   @Input() public bucketName?: string;
   @Input() prefix!: string;
-  @Output() chosenPrefixEvent = new EventEmitter<string>();
 
   delimiter: string;
   objects: {
@@ -27,13 +25,11 @@ export class ListObjectsComponent implements OnInit {
 
   constructor(private s3ServiceService: S3ServiceService) {}
 
-  getObjectsFromBucket(
-    bucketName: string | undefined,
-    prefix: string,
-    delimiter: string
-  ) {
+  getObjectsFromBucket(bucketName: string | undefined, delimiter: string) {
+    this.prefix = '';
+
     this.s3ServiceService
-      .transformObjects(bucketName, prefix, delimiter)
+      .transformObjects(bucketName, this.prefix, delimiter)
       .subscribe((objects: IObject[]) => {
         console.log('Objects ', objects);
         this.objects = objects;
@@ -78,31 +74,32 @@ export class ListObjectsComponent implements OnInit {
       this.prefix = prefix.substring(0, prefix.length - 1);
     } else {
       this.prefix = '';
-      this.getObjectsFromBucket(this.bucketName, this.prefix, delimiter);
+      this.getObjectsFromBucket(this.bucketName, delimiter);
     }
   }
 
-  isThisImage(key: string | undefined): boolean {
-    if (
-      key?.includes('.png') ||
-      key?.includes('.jpg') ||
-      key?.includes('.jpeg')
-    ) {
-      return true;
-    } else return false;
-  }
+  // isThisImage(key: string | undefined): boolean {
+  //   if (
+  //     key?.includes('.png') ||
+  //     key?.includes('.jpg') ||
+  //     key?.includes('.jpeg')
+  //   ) {
+  //     return true;
+  //   } else return false;
+  // }
 
-  isThisFile(key: string | undefined): boolean {
-    if (
-      key?.includes('.png') ||
-      key?.includes('.jpg') ||
-      key?.includes('.jpeg')
-    ) {
-      return true;
-    } else return false;
-  }
+  // isThisFile(key: string | undefined): boolean {
+  //   if (
+  //     key?.includes('.png') ||
+  //     key?.includes('.jpg') ||
+  //     key?.includes('.jpeg')
+  //   ) {
+  //     return true;
+  //   } else return false;
+  // }
   isThisFolder(key: string | undefined): boolean {
     if (key?.endsWith('~') || key?.endsWith('/')) {
+      // ~ сделан уникальным символом, так как выбранный для тестирования провайдер хранилища не дает создавать объекты, заканчивающиеся на /
       return true;
     } else return false;
   }
@@ -131,12 +128,15 @@ export class ListObjectsComponent implements OnInit {
   async deleteObject(bucketName: string, key: string) {
     try {
       await this.s3ServiceService.deleteFile(bucketName, key);
+      this.objects = this.objects.filter(function (obj) {
+        return obj.key !== key;
+      });
     } catch (err) {
       console.log('ERROR');
     }
   }
   ngOnChanges() {
-    this.getObjectsFromBucket(this.bucketName, this.prefix, '/');
+    this.getObjectsFromBucket(this.bucketName, '/');
   }
 
   ngOnInit() {}
