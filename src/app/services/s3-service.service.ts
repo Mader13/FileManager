@@ -63,6 +63,35 @@ export class S3ServiceService {
       signatureVersion: 'v4',
       apiVersion: 'latest',
     });
+    const cors_configuration = {
+      CORSRules: [
+        {
+          AllowedHeaders: ['*'],
+          AllowedMethods: ['GET', 'PUT', 'HEAD', 'POST', 'DELETE'],
+          AllowedOrigins: ['https://darling-fudge-0bb332.netlify.app/'],
+          MaxAgeSeconds: 3600,
+        },
+      ],
+    };
+    s3.putBucketCors(
+      {
+        Bucket: 'minti',
+        CORSConfiguration: {
+          CORSRules: [
+            {
+              AllowedHeaders: ['*'],
+              AllowedMethods: ['GET', 'PUT', 'HEAD', 'POST', 'DELETE'],
+              AllowedOrigins: ['https://darling-fudge-0bb332.netlify.app/'],
+              MaxAgeSeconds: 3600,
+            },
+          ],
+        },
+      },
+      (err) => {
+        if (err) console.log(err, err.stack);
+        else console.log(`CORS edited`);
+      }
+    );
     return s3;
   }
 
