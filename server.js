@@ -7,7 +7,7 @@ app.use(express.static(__dirname + "/dist/s3filemanager"));
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:4200"],
+    origin: ["https://darling-fudge-0bb332.netlify.app/"],
   })
 );
 app.get("/*", function (req, res) {
