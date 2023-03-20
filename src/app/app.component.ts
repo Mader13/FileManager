@@ -1,8 +1,6 @@
-import { Component, Input } from '@angular/core';
-import * as S3 from 'aws-sdk/clients/s3';
-import * as AWS from 'aws-sdk';
+import { Component } from '@angular/core';
 import { S3ServiceService } from './services/s3-service.service';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IBucket } from './interfaces/IBucket';
 import { ToastrService } from 'ngx-toastr';
 
@@ -16,7 +14,7 @@ export class AppComponent {
   auth: boolean = false;
   buckets: Array<IBucket>;
   public currentBucket: string;
-  title = 'S3 File Manager';
+
   constructor(
     private s3Service: S3ServiceService,
     private toastr: ToastrService
@@ -24,7 +22,6 @@ export class AppComponent {
 
   receiveBucketName($event: string) {
     this.currentBucket = $event;
-    console.log('Ивент ведра ' + this.currentBucket);
   }
   isBucketChanged(bucket: string | undefined): boolean {
     if (bucket != '') {
