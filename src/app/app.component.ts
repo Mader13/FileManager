@@ -32,13 +32,10 @@ export class AppComponent {
     } else return false;
   }
   authForm: FormGroup = new FormGroup({
-    accessKey: new FormControl('245747_Minti', Validators.required),
-    secretAccessKey: new FormControl(
-      'Selectel_not_great1',
-      Validators.required
-    ),
-    endpoint: new FormControl('https://s3.storage.selcloud.ru'),
-    region: new FormControl('ru-1', Validators.required),
+    accessKey: new FormControl('', Validators.required),
+    secretAccessKey: new FormControl('', Validators.required),
+    endpoint: new FormControl(''),
+    region: new FormControl('', Validators.required),
   });
 
   submitCredentials() {
